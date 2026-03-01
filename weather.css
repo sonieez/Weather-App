@@ -1,32 +1,82 @@
 body{
-  background-color: rgb(254,252,251);
+  background-color: rgb(0, 31, 84);
   height: 3000px;
   margin: 0;
 }
 .webpage{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   position: relative;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 400px) {
   .new-city-input{
     width: 200px;
   }
+  .search-bar-container{
+    width: 350px;
+  }
+  .city-info{
+    width: 450px;
+  }
+  .humidity-container, .pressure-container, .wind-speed-container, .visibility-container {
+    width: 50px;
+  }
+  .days-info{
+    width: 400px;
+  }
 }
 @media (min-width: 401px) and (max-width: 700px) {
   .new-city-input{
     width: 300px;
+  }
+  .search-bar-container{
+    width: 450px;
+  }
+  .city-info{
+    width: 550px;
+  }
+  .humidity-container, .pressure-container, .wind-speed-container, .visibility-container {
+    width: 140px;
+  }
+  .days-info{
+    width: 500px;
   }
 }
 @media (min-width: 701px) and (max-width: 1000px) {
   .new-city-input{
     width: 400px;
   }
+  .search-bar-container{
+    width: 550px;
+  }
+  .city-info{
+    width: 700px;
+  }
+  .humidity-container, .pressure-container, .wind-speed-container, .visibility-container {
+    width: 180px;
+  }
+  .days-info{
+    width: 600px;
+  }
 }
 @media (min-width: 1001px) {
   .new-city-input{
     width: 500px;
+  }
+  .search-bar-container{
+    width: 650px;
+  }
+  .city-info{
+    width: 900px;
+  }
+  .humidity-container, .pressure-container, .wind-speed-container, .visibility-container {
+    width: 200px;
+  }
+  .days-info{
+    width: 700px;
   }
 }
 
@@ -44,7 +94,7 @@ body{
   padding-left: 10px;
   padding-right: 10px;
   display: grid;
-  grid-template-columns: 1fr 7fr 2fr 1fr;
+  grid-template-columns: 1fr 7fr 1fr 1fr 1fr;
   align-items: center;
   justify-content: center;
 
@@ -63,21 +113,24 @@ p{
 .country-name{
   font-size: 15px;
 }
-.current-date, .current-time{
+.current-day, .current-date, .current-time{
   font-size: 20px;
   margin-left: 10px;
 }
 
 .search-bar-container{
   position: absolute;
-  height: 40px;
-  top: 50px;
-  right: 0;
-  left: 0;
-  background-color: rgb(0, 31, 84);
+  height: 50px;
+  top: 60px;
+  
+
+  border-radius: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 10px 0 rgba(31, 38, 135, 0.37);
 }
 
 .new-city-input{
@@ -86,6 +139,7 @@ p{
   border: none;
   padding: 5px;
   margin-right: 10px;
+  
 }
 .search-city-button{
   height: 30px;
@@ -94,6 +148,111 @@ p{
   border: none;
 
   cursor: pointer;
+}
 
-  background-color: white;
+.city-info{
+  position: absolute;
+  background-color: rgb(3, 64, 120, 0.8);
+  top: 150px;
+  height: 350px;
+  
+  border-radius: 20px;
+  
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  padding: 30px;
+}
+
+.city-main-info{
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-left: 20px;
+}
+
+.weather-icon{
+  height: 130px;
+  width: 130px;
+}
+
+.temperature{
+  font-size: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.weather-status{
+  font-size: 30px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.temperature-max-min, .temperature-feels-like{
+  font-size: 20px;
+  margin: 0;
+}
+
+.city-info-details{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+}
+
+.humidity-container, .pressure-container, .wind-speed-container, .visibility-container {
+  height: 120px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 10px 0 rgba(31, 38, 135, 0.4);
+  
+  border-radius: 20px;
+
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detail-name{
+  box-shadow: 0 2px 0 0 rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.detail-info{
+  margin: 5px;
+  font-size: 30px;
+}
+
+.days-info{
+  position: absolute;
+  top: 600px;
+  height: 350px;
+  padding: 20px;
+  border-radius: 20px;
+  
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 10px 0 rgba(31, 38, 135, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.days{
+  display: grid;
+  grid-template-columns: 5fr 1fr 1fr;
+  align-items: center;
+  justify-content: space-between;
+  
+  margin-bottom: 15px;
+  padding-left: 10px;
+
+  border-radius: 15px;
+  font-size: 16px;
+
+  background-color: rgba(255, 252, 252, 0.2);
+}
+.day-icon{
+  height: 50px;
 }
