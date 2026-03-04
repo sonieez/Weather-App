@@ -7,11 +7,11 @@
   <body>
     <div class="webpage">
       <div class="current-city">
-        <p class="city-name">BAKU</p>
-        <p class="country-name">Azerbaijan</p>
-        <p class="current-day">Thursday</p>
-        <p class="current-date">26.02.2026</p>
-        <p class="current-time">00:10</p>
+        <p class="city-name js-city-name"></p>
+        <p class="country-name js-country-name"></p>
+        <p class="current-day js-current-day">Thursday</p>
+        <p class="current-date js-current -date">26.02.2026</p>
+        <p class="current-time js-current-time">00:10</p>
       </div>
       <div class="search-bar-container">
         <input class="new-city-input" placeholder="Enter a city name">
@@ -20,31 +20,31 @@
       <div class="city-info">
         <div class="city-main-info">
           <img class="weather-icon" src="https://cdn-icons-png.flaticon.com/128/616/616516.png">
-          <p class="temperature">6°</p>
-          <p class="weather-status">Cloudy</p>
-          <p class="temperature-max-min">7°/6°</p>
-          <p class="temperature-feels-like">Feels like 6°</p>
+          <p class="temperature js-temperature"></p>
+          <p class="weather-status js-description"></p>
+          <p class="temperature-max-min js-temp-max-min"></p>
+          <p class="temperature-feels-like js-feels-like"></p>
         </div>
         <div class="city-info-details">
 
           <div class="humidity-container">
             <p class="detail-name">Humidity</p>
-            <p class="detail-info">94%</p>
+            <p class="detail-info js-humidity"></p>
           </div>
 
           <div class="pressure-container">
             <p class="detail-name">Pressure</p>
-            <p class="detail-info">1080.0 mb</p>
+            <p class="detail-info js-pressure"></p>
           </div>
 
           <div class="wind-speed-container">
             <p class="detail-name">Wind Speed</p>
-            <p class="detail-info">4 km/h</p>
+            <p class="detail-info js-wind-speed"></p>
           </div>
 
           <div class="visibility-container">
             <p class="detail-name">Visibility</p>
-            <p class="detail-info">10.00 km</p>
+            <p class="detail-info js-visibility"></p>
           </div>
 
         </div>
@@ -81,5 +81,7 @@
         </div>
       </div>
     </div>
+
+    <script type="module" src="weather.js"></script>
   </body>
 </html>
