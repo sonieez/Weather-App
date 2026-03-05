@@ -1,17 +1,51 @@
-async function fetchWeatherData() {
+import dayjs from 'https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js';
+const today = dayjs();
+console.log(today);
+
+async function fetchWeatherData(cityName) {
   const apiKey = 'ed46d9720c2951f05be4236c97a835c6';
-  const cityName = 'London';
 
   const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`);
 
-  const data = await response.json();
-  
-  return data;
+  try {
+    if (!response.ok) {
+      throw Error('City was not found!');
+    }
+
+    const data = await response.json();
+    return data;
+
+  } catch(error) {
+    console.log(error);
+  }
+    
 }
 
+function searchCity() {
+  const searchButton = document.querySelector('.js-search-button');
+  searchButton.addEventListener('click', async () => {
+    const cityName = document.querySelector('.js-input-city').value;
 
-async function changeWeather() {
-  const data = await fetchWeatherData();
+    if (cityName) {
+      const data =  await fetchWeatherData(cityName);
+      changeWeather(data);
+    }
+  });
+
+  const cityInput = document.querySelector('.js-input-city');
+  cityInput.addEventListener('keydown', async (event) => {
+    if (event.key === 'Enter') {
+      const cityName = document.querySelector('.js-input-city').value;
+
+      if (cityName) {
+        const data =  await fetchWeatherData(cityName);
+        changeWeather(data);
+      }
+      }
+  })
+}
+
+function changeWeather(data) {
   console.log(data);
   const weather = {
     name: data.name,
@@ -24,9 +58,9 @@ async function changeWeather() {
     tempMax: data.main.temp_max,
     tempMin: data.main.temp_min,
     description: data.weather[0].description,
-    windSpeed: data.wind.speed
+    windSpeed: data.wind.speed,
+    icon: data.weather[0].icon
   }
-  //console.log(weather);
   changeHeader(weather);
   changeMainWeather(weather);
   changeDetailsWeather(weather);
@@ -41,19 +75,26 @@ function changeHeader(weather) {
 }
 
 function changeMainWeather(weather) {
+  const icon = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`
   const temperature = Math.round(weather.temp);
-  document.querySelector('.js-temperature').innerHTML = temperature + '°';
-
   const description = weather.description;
-  document.querySelector('.js-description').innerHTML = description;
-
   const temperatureMax = Math.ceil(weather.tempMax);
   const temperatureMin = Math.floor(weather.tempMin);
-  document.querySelector('.js-temp-max-min').innerHTML = 
-    `${temperatureMax}°/${temperatureMin}°`;
-
   const feelsLike = Math.round(weather.feelsLike);
-  document.querySelector('.js-feels-like').innerHTML = `Feels like ${feelsLike}°`;
+  
+  const mainHTML = `
+    <img class="weather-icon" src="${icon}">
+    <p class="temperature js-temperature">${temperature}°</p>
+    <p class="weather-status js-description">${description}</p>
+    <p class="temperature-max-min js-temp-max-min">
+      ${temperatureMax}°/${temperatureMin}°
+    </p>
+    <p class="temperature-feels-like js-feels-like">
+      Feels like ${feelsLike}°
+    </p>
+  `;
+
+  document.querySelector('.city-main-info').innerHTML = mainHTML;
 }
 
 function changeDetailsWeather(weather) {
@@ -62,11 +103,30 @@ function changeDetailsWeather(weather) {
   const windSpeed = weather.windSpeed;
   const visibility = (weather.visibility) / 1000;
 
-  document.querySelector('.js-humidity').innerHTML = humidity + ' %';
-  document.querySelector('.js-pressure').innerHTML = pressure + ' mb';
-  document.querySelector('.js-wind-speed').innerHTML = windSpeed + ' km/h';
-  document.querySelector('.js-visibility').innerHTML = visibility + ' km';
+
+  const otherHTML = `
+    <div class="humidity-container">
+      <p class="detail-name">Humidity</p>
+      <p class="detail-info js-humidity">${humidity}%</p>
+    </div>
+
+    <div class="pressure-container">
+      <p class="detail-name">Pressure</p>
+      <p class="detail-info js-pressure">${pressure} mb</p>
+    </div>
+
+    <div class="wind-speed-container">
+      <p class="detail-name">Wind Speed</p>
+      <p class="detail-info js-wind-speed">${windSpeed} km/h</p>
+    </div>
+
+    <div class="visibility-container">
+      <p class="detail-name">Visibility</p>
+      <p class="detail-info js-visibility">${visibility} km</p>
+    </div>
+  `;
+
+  document.querySelector('.city-info-details').innerHTML = otherHTML;
 }
 
-
-changeWeather();
+searchCity();
