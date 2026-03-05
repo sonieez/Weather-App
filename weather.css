@@ -94,17 +94,19 @@ body{
   padding-left: 10px;
   padding-right: 10px;
   display: grid;
-  grid-template-columns: 1fr 7fr 1fr 1fr 1fr;
+  grid-template-columns: 3fr 1fr;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
 }
 p{
   color: white;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-.city-name, .country-name, .current-date, .current-time{
+.city-name, .country-name, .current-day, .current-date, .current-time{
   margin: 0;
+  display: inline-block;
+  margin-left: 5px;
 }
 .city-name{
   font-size: 25px;
