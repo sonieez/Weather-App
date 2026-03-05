@@ -1,7 +1,3 @@
-import dayjs from 'https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js';
-const today = dayjs();
-console.log(today);
-
 async function fetchWeatherData(cityName) {
   const apiKey = 'ed46d9720c2951f05be4236c97a835c6';
 
