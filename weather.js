@@ -1,3 +1,16 @@
+import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+
+
+function currentDate() {
+  const today = dayjs().format('dddd');
+  const todayDate = dayjs().format('DD.MM.YYYY')
+  
+  document.querySelector('.js-current-day').innerHTML = today;
+  document.querySelector('.js-current-date').innerHTML = todayDate;
+  searchCity();
+}
+
+
 async function fetchWeatherData(cityName) {
   const apiKey = 'ed46d9720c2951f05be4236c97a835c6';
 
@@ -25,6 +38,8 @@ function searchCity() {
     if (cityName) {
       const data =  await fetchWeatherData(cityName);
       changeWeather(data);
+      const days = await daysWeather(cityName);
+      otherDays(days);
     }
   });
 
@@ -36,13 +51,15 @@ function searchCity() {
       if (cityName) {
         const data =  await fetchWeatherData(cityName);
         changeWeather(data);
+        const days = await daysWeather(cityName);
+        otherDays(days);
       }
       }
   })
 }
 
 function changeWeather(data) {
-  console.log(data);
+  //console.log(data);
   const weather = {
     name: data.name,
     country: data.sys.country,
@@ -125,4 +142,52 @@ function changeDetailsWeather(weather) {
   document.querySelector('.city-info-details').innerHTML = otherHTML;
 }
 
+async function daysWeather(cityName) {
+  const apiKey = 'ed46d9720c2951f05be4236c97a835c6';
+
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=metric`);
+
+  try {
+    if (!response.ok) {
+      throw Error('City was not found!');
+    }
+
+    const data = await response.json();
+    const dailyForecast = data.list.filter(day =>
+      day.dt_txt.includes("12:00:00")
+    );
+    //console.log(dailyForecast);
+    return dailyForecast;
+
+  } catch(error) {
+    console.log(error);
+  }
+}
+
+function otherDays(days) {
+  
+  let today = dayjs();
+  let daysHTML = '';
+
+  days.forEach((day) => {
+    today = today.add(1, 'day');
+    
+    const dayName = today.format('dddd')
+    const dayIcon = day.weather[0].icon;
+    const tempMax = Math.ceil(day.main.temp_max);
+    const tempMin = Math.floor(day.main.temp_min);
+
+    daysHTML += `
+      <div class="days">
+        <p class="day">${dayName}</p>
+        <img class="day-icon" src="https://openweathermap.org/img/wn/${dayIcon}@2x.png">
+        <p class="days-temperature">${tempMax}°/${tempMin}°</p>
+      </div>
+    `
+  });
+
+  document.querySelector('.js-days-weather').innerHTML = daysHTML;
+}
+
+currentDate();
 searchCity();
