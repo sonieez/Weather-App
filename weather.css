@@ -2,6 +2,7 @@ body{
   background-color: rgb(0, 31, 84);
   height: 3000px;
   margin: 0;
+  /*background: linear-gradient(to bottom, #4facfe, #00f2fe);*/
 }
 .webpage{
   display: flex;
@@ -94,14 +95,17 @@ body{
   padding-left: 10px;
   padding-right: 10px;
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 2fr 1fr;
   align-items: center;
   justify-content: space-between;
-
 }
 p{
   color: white;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.current-time{
+  display: flex;
+  flex-direction: row;
 }
 .city-name, .country-name, .current-day, .current-date, .current-time{
   margin: 0;
@@ -115,7 +119,7 @@ p{
 .country-name{
   font-size: 15px;
 }
-.current-day, .current-date, .current-time{
+.current-day, .current-date{
   font-size: 20px;
   margin-left: 10px;
 }
