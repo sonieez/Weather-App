@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Weather App</title>
-    <link rel="stylesheet" href="weather.css"></link>
+    <title>WeatherView</title>
+    <link rel="stylesheet" href="weather.css">
   </head>
   <body>
-    <div class="webpage">
-      <div class="current-city">
-        <div>
-          <p class="city-name js-city-name"></p>
-          <p class="country-name js-country-name"></p>
-        </div>
-        <div class="current-time">
-          <p class="current-day js-current-day">Thursday</p>
-          <p class="current-date js-current-date">26.02.2026</p>
-        </div>
-      </div>
-      <div class="search-bar-container">
-        <input class="new-city-input js-input-city" placeholder="Enter a city name">
+    <div class="app-details">
+      <p class="app-name">WeatherView</p>
+      <p class="app-description">View the simple & accurate forecast</p>
+    </div>
+
+    <div class="search-bar-container">
+      <div class="search-bar">
+        <input class="new-city-input js-input-city" placeholder="Search a city...">
         <button class="search-city-button js-search-button">🔍</button>
+        <p class="current-day js-current-day">Wed</p>
+        <p class="current-date js-current-date">11/03/2026</p>
       </div>
-      <div class="city-info">
-        <div class="city-main-info"></div>
-        <div class="city-info-details"></div>
-      </div>
-      <div class="days-info js-days-weather">
+    </div>
+
+    <div class="city-main-info-container">
+
+    </div>
+
+    <div class="info-container">
+
+      <div class="weather-details">
+
+        <div class="days-info js-days-weather">
+
+        </div>
+
+        <div class="city-info-details">
+
+        </div>
       </div>
     </div>
 
