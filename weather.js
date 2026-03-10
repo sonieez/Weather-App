@@ -40,6 +40,7 @@ function searchCity() {
       changeWeather(data);
       const days = await daysWeather(cityName);
       otherDays(days);
+      document.querySelector('.weather-details').classList.add('weather-container');
     }
   });
 
@@ -53,6 +54,7 @@ function searchCity() {
         changeWeather(data);
         const days = await daysWeather(cityName);
         otherDays(days);
+        document.querySelector('.weather-details').classList.add('weather-container');
       }
       }
   })
@@ -74,40 +76,36 @@ function changeWeather(data) {
     windSpeed: data.wind.speed,
     icon: data.weather[0].icon
   }
-  changeHeader(weather);
   changeMainWeather(weather);
   changeDetailsWeather(weather);
 }
 
-function changeHeader(weather) {
-  const currentCity = weather.name;
-  document.querySelector('.js-city-name').innerHTML = currentCity;
-
-  const currentCountry = weather.country;
-  document.querySelector('.js-country-name').innerHTML = currentCountry;
-}
 
 function changeMainWeather(weather) {
   const icon = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`
   const temperature = Math.round(weather.temp);
-  const description = weather.description;
+  let description = weather.description;
+  description = description[0].toUpperCase() + description.slice(1);
   const temperatureMax = Math.ceil(weather.tempMax);
   const temperatureMin = Math.floor(weather.tempMin);
   const feelsLike = Math.round(weather.feelsLike);
   
   const mainHTML = `
-    <img class="weather-icon" src="${icon}">
-    <p class="temperature js-temperature">${temperature}°</p>
-    <p class="weather-status js-description">${description}</p>
-    <p class="temperature-max-min js-temp-max-min">
-      ${temperatureMax}°/${temperatureMin}°
-    </p>
-    <p class="temperature-feels-like js-feels-like">
-      Feels like ${feelsLike}°
-    </p>
+    <div class="city-main-info">
+      <p class="city-name js-city-name">${weather.name}</p>
+      <div class="main-weather">
+        ${temperature}°
+        <img class="weather-icon" src=${icon}>
+      </div>
+      <div class="main-info">
+        <p>${description}</p>
+        <p>${temperatureMax}°/ ${temperatureMin}°</p>
+        <p>Feels like ${feelsLike}°</p>
+      </div>
+    </div>
   `;
 
-  document.querySelector('.city-main-info').innerHTML = mainHTML;
+  document.querySelector('.city-main-info-container').innerHTML = mainHTML;
 }
 
 function changeDetailsWeather(weather) {
@@ -118,24 +116,36 @@ function changeDetailsWeather(weather) {
 
 
   const otherHTML = `
-    <div class="humidity-container">
-      <p class="detail-name">Humidity</p>
-      <p class="detail-info js-humidity">${humidity}%</p>
+    <div class="details">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/128/727/727891.png">
+      <div>
+        <p class="detail-name">Humidity</p>
+        <p class="detail-info">${humidity}%</p>
+      </div>
     </div>
 
-    <div class="pressure-container">
-      <p class="detail-name">Pressure</p>
-      <p class="detail-info js-pressure">${pressure} mb</p>
+    <div class="details">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/128/2294/2294639.png">
+      <div>
+        <p class="detail-name">Pressure</p>
+        <p class="detail-info">${pressure} mb</p>
+      </div>
     </div>
 
-    <div class="wind-speed-container">
-      <p class="detail-name">Wind Speed</p>
-      <p class="detail-info js-wind-speed">${windSpeed} km/h</p>
+    <div class="details">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/128/11742/11742598.png">
+      <div>
+        <p class="detail-name">Wind speed</p>
+        <p class="detail-info">${windSpeed} km/h</p>
+      </div>
     </div>
 
-    <div class="visibility-container">
-      <p class="detail-name">Visibility</p>
-      <p class="detail-info js-visibility">${visibility} km</p>
+    <div class="details">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/128/6339/6339415.png">
+      <div>
+        <p class="detail-name">Visibility</p>
+        <p class="detail-info">${visibility} km</p>
+      </div>
     </div>
   `;
 
@@ -172,7 +182,7 @@ function otherDays(days) {
   days.forEach((day) => {
     today = today.add(1, 'day');
     
-    const dayName = today.format('dddd')
+    const dayName = today.format('ddd')
     const dayIcon = day.weather[0].icon;
     const tempMax = Math.ceil(day.main.temp_max);
     const tempMin = Math.floor(day.main.temp_min);
