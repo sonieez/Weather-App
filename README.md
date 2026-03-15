@@ -22,4 +22,4 @@ https://sonieez.github.io/Weather-App/
 
 📽️How it looks:
 
-![WeatherView](screenrecord.mp4)
+![WeatherView](screenrecord.gif)
